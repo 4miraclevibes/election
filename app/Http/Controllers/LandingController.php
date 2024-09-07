@@ -5,13 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\KecamatanElection;
 use App\Models\KelurahanElection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LandingController extends Controller
 {
     public function index(Request $request)
     {
         $kecamatanElectionSlug = $request->query('kecamatan');
-        $kecamatanElections = KecamatanElection::all();
+        if(Auth::user()->role == 'admin'){
+            $kecamatanElections = KecamatanElection::all();
+        }else{
+            if(Auth::user()->kecamatanElection){
+                $kecamatanElections = KecamatanElection::where('id', Auth::user()->kecamatanElection->id)->get();
+            }elseif(Auth::user()->kelurahanElection){
+                $kecamatanElections = KecamatanElection::where('id', Auth::user()->kelurahanElection->kecamatan_election_id)->get();
+            }else{
+                return redirect()->route('participant.index')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+            }
+        }
 
         if ($kecamatanElectionSlug) {
             $kecamatanElection = $kecamatanElections->firstWhere('slug', $kecamatanElectionSlug);
