@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 //     return view('welcome');
 // });
 
-Route::get('/', [LandingController::class, 'index'])->name('home');
+Route::get('/', [LandingController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
 Route::get('/dashboard', function () {
     if (Auth::user()->role_id !== 1) { // Asumsikan role_id 1 adalah admin
