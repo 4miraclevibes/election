@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function kecamatanElection()
     {
-        return $this->hasMany(kecamatanElection::class);
+        return $this->hasMany(KecamatanElection::class);
     }
 
     public function kelurahanElection()
