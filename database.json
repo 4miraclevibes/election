@@ -1,0 +1,220 @@
+{
+    "roles": [
+        {
+            "id": "integer",
+            "name": "string",
+            "users": [
+                {
+                    "id": "integer",
+                    "name": "string",
+                    "email": "string",
+                    "role_id": "foreignId",
+                    "created_at": "timestamp",
+                    "updated_at": "timestamp"
+                },
+                {
+                    "relation": [
+                        {
+                            "users": "BelongsTo",
+                            "lectures": "BelongsTo",
+                            "students": "BelongsTo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "relation": [
+                {
+                    "users": "HasMany"
+                }
+            ]
+        }
+    ],
+    "users": [
+        {
+            "id": "integer",
+            "name": "string",
+            "email": "string",
+            "role_id": "integer",
+            "created_at": "timestamp",
+            "updated_at": "timestamp",
+            "kecematan_election": [
+                {
+                    "id": "integer",
+                    "name": "string",
+                    "user_id": "foreignId",
+                    "created_at": "timestamp",
+                    "updated_at": "timestamp"
+                },
+                {
+                    "relation": [
+                        {
+                            "user": "BelongsTo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "relation": [
+                {
+                    "kecematan_election": "HasMany"
+                }
+            ]
+        }
+    ],
+    "kecamatan_election": [
+        {
+            "id": "integer",
+            "name": "string",
+            "user_id": "foreignId",
+            "created_at": "timestamp",
+            "updated_at": "timestamp",
+            "keluaran_election": [
+                {
+                    "id": "integer",
+                    "name": "string",
+                    "user_id": "foreignId",
+                    "kecamatan_election_id": "foreignId",
+                    "created_at": "timestamp",
+                    "updated_at": "timestamp"
+                },
+                {
+                    "relation": [
+                        {
+                            "user": "BelongsTo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "relation": [
+                {
+                    "keluaran_election": "HasMany"
+                }
+            ]
+        }
+    ],
+    "keluaran_election": [
+        {
+            "id": "integer",
+            "name": "string",
+            "user_id": "foreignId",
+            "kecamatan_election_id": "foreignId",
+            "created_at": "timestamp",
+            "updated_at": "timestamp",
+            "tps_election": [
+                {
+                    "id": "integer",
+                    "name": "string",
+                    "user_id": "foreignId",
+                    "keluaran_election_id": "foreignId",
+                    "created_at": "timestamp",
+                    "updated_at": "timestamp"
+                },
+                {
+                    "relation": [
+                        {
+                            "user": "BelongsTo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "relation": [
+                {
+                    "tps_election": "HasMany"
+                }
+            ]
+        }
+    ],
+    "tps_election": [
+        {
+            "id": "integer",
+            "name": "string",
+            "user_id": "foreignId",
+            "keluaran_election_id": "foreignId",
+            "created_at": "timestamp",
+            "updated_at": "timestamp",
+            "participant_election": [
+                {
+                    "id": "integer",
+                    "name": "string",
+                    "nik": "string",
+                    "phone": "string",
+                    "tps_election_id": "foreignId",
+                    "created_at": "timestamp",
+                    "updated_at": "timestamp"
+                },
+                {
+                    "relation": [
+                        {
+                            "tps_election": "BelongsTo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "relation": [
+                {
+                    "participant_election": "HasMany"
+                }
+            ]
+        }
+    ],
+    "candidate_election": [
+        {
+            "id": "integer",
+            "name": "string",
+            "created_at": "timestamp",
+            "updated_at": "timestamp"
+        },
+        {
+            "relation": [
+                {
+                    "quick_count_detail": "HasMany"
+                }
+            ]
+        }
+    ],
+    "quick_count": [
+        {
+            "id": "integer",
+            "tps_election_id": "foreignId",
+            "created_at": "timestamp",
+            "updated_at": "timestamp",
+            "quick_count_detail": [
+                {
+                    "id": "integer",
+                    "name": "string",
+                    "quick_count_id": "foreignId",
+                    "vote_count": "integer",
+                    "candidate_election_id": "foreignId",
+                    "created_at": "timestamp",
+                    "updated_at": "timestamp"
+                },
+                {
+                    "relation": [
+                        {
+                            "quick_count": "BelongsTo"
+                        },
+                        {
+                            "candidate_election": "BelongsTo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "relation": [
+                {
+                    "quick_count_detail": "HasMany"
+                }
+            ]
+        }
+    ]
+}
