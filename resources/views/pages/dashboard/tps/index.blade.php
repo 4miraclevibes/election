@@ -108,6 +108,7 @@
         <h6>Informasi TPS</h6>
         <p><strong>Nama:</strong> {{ $tps->name }}</p>
         <p><strong>PJ TPS:</strong> {{ $tps->user->name }}</p>
+        <p><strong>Email:</strong> {{ $tps->user->email }}</p>
         <p><strong>Kelurahan:</strong> {{ $tps->kelurahanElection->name }}</p>
         <p><strong>Kecamatan:</strong> {{ $tps->kelurahanElection->kecamatanElection->name }}</p>
         <p><strong>Total Undangan:</strong> {{ $tps->total_invitation }}</p>
