@@ -56,6 +56,8 @@ Route::group([
     Route::get('tps/index', [TpsElectionController::class, 'index'])->name('tps.index');
     Route::post('tps/store', [TpsElectionController::class, 'store'])->name('tps.store');
     Route::delete('tps/destroy/{id}', [TpsElectionController::class, 'destroy'])->name('tps.destroy');
+    Route::post('tps/storeDetail', [TpsElectionController::class, 'storeDetail'])->name('tps.storeDetail');
+    Route::delete('tps/destroyDetail/{id}', [TpsElectionController::class, 'destroyDetail'])->name('tps.destroyDetail');
 
     // Kelurahan Election
     Route::get('kelurahan/index', [KelurahanElectionController::class, 'index'])->name('kelurahan.index');

@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('participant_elections', function (Blueprint $table) {
+        Schema::create('tps_election_details', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('nik');
-            $table->string('phone');
             $table->foreignId('tps_election_id')->constrained('tps_elections')->onDelete('cascade');
-            $table->foreignId('tps_election_detail_id')->constrained('tps_election_details')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('participant_elections');
+        Schema::dropIfExists('tps_election_details');
     }
 };

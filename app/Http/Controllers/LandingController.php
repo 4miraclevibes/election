@@ -12,13 +12,11 @@ class LandingController extends Controller
     public function index(Request $request)
     {
         $kecamatanElectionSlug = $request->query('kecamatan');
-        if(Auth::user()->role == 'admin'){
+        if(Auth::user()->role->name == 'admin'){
             $kecamatanElections = KecamatanElection::all();
         }else{
             if(Auth::user()->kecamatanElection){
                 $kecamatanElections = KecamatanElection::where('id', Auth::user()->kecamatanElection->id)->get();
-            }elseif(Auth::user()->kelurahanElection){
-                $kecamatanElections = KecamatanElection::where('id', Auth::user()->kelurahanElection->kecamatan_election_id)->get();
             }else{
                 return redirect()->route('participant.index')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
             }
@@ -29,7 +27,13 @@ class LandingController extends Controller
             $kelurahanElections = KelurahanElection::where('kecamatan_election_id', $kecamatanElection->id)->get();
             $activeKecamatanElection = $kecamatanElection;
         } else {
-            $kelurahanElections = KelurahanElection::all();
+            if(Auth::user()->kecamatanElection){
+                $kelurahanElections = KelurahanElection::where('kecamatan_election_id', Auth::user()->kecamatanElection->id)->get();
+            }elseif(Auth::user()->kelurahanElection){
+                $kelurahanElections = KelurahanElection::where('id', Auth::user()->kelurahanElection->id)->get();
+            } else{
+                $kelurahanElections = KelurahanElection::all();
+            }
             $activeKecamatanElection = null;
         }
 

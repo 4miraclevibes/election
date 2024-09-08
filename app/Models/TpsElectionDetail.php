@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ParticipantElection extends Model
+class TpsElectionDetail extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'tps_election_id',
-        'tps_election_detail_id',
-        'name',
-        'nik',
-        'phone',
+        'user_id',
     ];
 
     public function tpsElection()
@@ -22,8 +19,13 @@ class ParticipantElection extends Model
         return $this->belongsTo(TpsElection::class);
     }
 
-    public function tpsElectionDetail()
+    public function user()
     {
-        return $this->belongsTo(TpsElectionDetail::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function participantElection()
+    {
+        return $this->hasMany(ParticipantElection::class);
     }
 }

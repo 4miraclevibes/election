@@ -11,7 +11,11 @@ class ParticipantElectionController extends Controller
 {
     public function index()
     {
-        $participantElection = ParticipantElection::where('tps_election_id', Auth::user()->tpsElection->id)->latest()->get();
+        if(Auth::user()->tpsElectionDetails){
+            $participantElection = ParticipantElection::where('tps_election_id', Auth::user()->tpsElectionDetails->tpsElection->id)->latest()->get();
+        }else{
+            return redirect()->route('participant.all')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        }
         return view('pages.landing.participant', compact('participantElection'));
     }
 
@@ -24,7 +28,8 @@ class ParticipantElectionController extends Controller
         ]);
 
         $data = $request->only('name', 'nik', 'phone');
-        $data['tps_election_id'] = Auth::user()->tpsElection->id;
+        $data['tps_election_id'] = Auth::user()->tpsElectionDetails->tpsElection->id;
+        $data['tps_election_detail_id'] = Auth::user()->tpsElectionDetails->id;
         ParticipantElection::create($data);
 
         return redirect()->route('participant.index')->with('success', 'Data berhasil disimpan');
@@ -32,7 +37,20 @@ class ParticipantElectionController extends Controller
 
     public function all()
     {
-        $participantElection = ParticipantElection::latest()->get();
+        if (Auth::user()->kecamatanElection) {
+            $participantElection = ParticipantElection::whereHas('tpsElection.kelurahanElection', function ($query) {
+                $query->where('kecamatan_election_id', Auth::user()->kecamatanElection->id);
+            })->latest()->get();
+        } elseif (Auth::user()->kelurahanElection) {
+            $participantElection = ParticipantElection::whereHas('tpsElection', function ($query) {
+                $query->where('kelurahan_election_id', Auth::user()->kelurahanElection->id);
+            })->latest()->get();
+        } elseif (Auth::user()->tpsElection) {
+            $participantElection = ParticipantElection::where('tps_election_id', Auth::user()->tpsElection->id)->latest()->get();
+        } else {
+            $participantElection = ParticipantElection::latest()->get();
+        }
+
         return view('pages.landing.participantAll', compact('participantElection'));
     }
 

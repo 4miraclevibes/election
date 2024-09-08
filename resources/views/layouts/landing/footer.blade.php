@@ -2,13 +2,13 @@
     <div class="container">
         <div class="row py-2">
             <div class="col-3 text-center">
-                <a href="{{ route('home') }}" class="text-decoration-none">
+                <a href="{{ route('home') }}" class="text-decoration-none {{ Auth::user()->kecamatanElection || Auth::user()->role->name == 'admin' ? '' : 'disabled' }}">
                     <i class="bi bi-house-door{{ Route::is('home') ? '-fill text-success' : ' text-secondary' }} fs-5"></i>
                     <p class="mb-0 small {{ Route::is('home') ? 'text-success' : 'text-secondary' }}">Beranda</p>
                 </a>
             </div>
             <div class="col-3 text-center">
-                <a href="{{ route('participant.index') }}" class="text-decoration-none @auth{{ Auth::user()->tpsElection == null ? 'disabled' : '' }} @else disabled @endauth">
+                <a href="{{ route('participant.index') }}" class="text-decoration-none @auth{{ Auth::user()->tpsElectionDetails == null ? 'disabled' : '' }} @else disabled @endauth">
                     <i class="bi bi-cart{{ Route::is('participant.index') ? '-fill text-success' : ' text-secondary' }} fs-5"></i>
                     <p class="mb-0 small {{ Route::is('participant.index') ? 'text-success' : 'text-secondary' }}">Entri Data</p>
                 </a>

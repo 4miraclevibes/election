@@ -84,7 +84,7 @@ class KecamatanElectionSeeder extends Seeder
                         'updated_at' => now(),
                     ]);
 
-                    DB::table('tps_elections')->insert([
+                    $tpsId = DB::table('tps_elections')->insertGetId([
                         'user_id' => $tpsUserId,
                         'kelurahan_election_id' => $kelurahanId,
                         'name' => $tpsName,
@@ -93,6 +93,26 @@ class KecamatanElectionSeeder extends Seeder
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
+
+                    // Tambahkan 3 TpsElectionDetail untuk setiap TPS
+                    for ($j = 1; $j <= 3; $j++) {
+                        // Buat user baru untuk setiap TpsElectionDetail
+                        $detailUserId = DB::table('users')->insertGetId([
+                            'name' => 'PJ ' . $j . ' ' . $tpsName . ' ' . $kelurahanName,
+                            'email' => 'pj' . $j . '.' . Str::slug($kecamatanName . '-' . $kelurahanName . '-' . $tpsName) . '@example.com',
+                            'password' => Hash::make('password'),
+                            'role_id' => 2,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+
+                        DB::table('tps_election_details')->insert([
+                            'tps_election_id' => $tpsId,
+                            'user_id' => $detailUserId,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                    }
                 }
             }
         }

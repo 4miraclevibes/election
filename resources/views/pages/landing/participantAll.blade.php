@@ -36,14 +36,24 @@
 @section('content')
 <div class="container py-4">
     <section class="data">
+        @if(Auth::user()->kelurahanElection)
+        <h5 class="section-title mb-3">Data Pemilih {{ Auth::user()->kelurahanElection->name }}</h5>
+        @elseif(Auth::user()->tpsElection)
+        <h5 class="section-title mb-3">Data Pemilih {{ Auth::user()->tpsElection->name }}</h5>
+        @elseif(Auth::user()->kecamatanElection)
+        <h5 class="section-title mb-3">Data Pemilih {{ Auth::user()->kecamatanElection->name }}</h5>
+        @else
         <h5 class="section-title mb-3">Data Pemilih</h5>
+        @endif
         <h5>Total Pemilih: {{ $participantElection->count() }}</h5>
         <div class="row g-3">
             @foreach($participantElection as $participantElection)
             <div class="col-md-6 col-lg-6 col-6">
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
-                        <h3 class="card-title">Tps {{ $participantElection->tpsElection->name }}</h3>
+                        <h3 class="card-title">TPS: {{ $participantElection->tpsElection->name }}</h3>
+                        <h3 class="card-title">Kel: {{ $participantElection->tpsElection->kelurahanElection->name }}</h3>
+                        <h3 class="card-title">Kec: {{ $participantElection->tpsElection->kelurahanElection->kecamatanElection->name }}</h3>
                         <p class="card-text mb-0">Name: {{ $participantElection->name }}</p>
                         <p class="card-text mb-0">Nik: {{ $participantElection->nik }}</p>
                         <p class="card-text mb-0">Phone: {{ $participantElection->phone }}</p>

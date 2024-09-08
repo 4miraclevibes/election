@@ -18,6 +18,7 @@
           <tr class="text-nowrap table-dark">
             <th class="text-white">No</th>
             <th class="text-white">Name</th>
+            <th class="text-white">Email</th>
             <th class="text-white">PJ</th>
             <th class="text-white">Actions</th>
           </tr>
@@ -27,6 +28,7 @@
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $kecamatan->name }}</td>
+            <td>{{ $kecamatan->user->email }}</td>
             <td>{{ $kecamatan->user->name }}</td>
               <td>
                 <form action="{{ route('dashboard.kecamatan.destroy', $kecamatan->id) }}" method="POST" style="display:inline-block;">

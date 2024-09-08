@@ -18,6 +18,7 @@
           <tr class="text-nowrap table-dark">
             <th class="text-white">No</th>
             <th class="text-white">Name</th>
+            <th class="text-white">Email</th>
             <th class="text-white">PJ</th>
             <th class="text-white">Kecamatan</th>
             <th class="text-white">Actions</th>
@@ -28,6 +29,7 @@
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $kelurahan->name }}</td>
+            <td>{{ $kelurahan->user->email }}</td>
             <td>{{ $kelurahan->user->name }}</td>
             <td>{{ $kelurahan->kecamatanElection->name }}</td>
               <td>

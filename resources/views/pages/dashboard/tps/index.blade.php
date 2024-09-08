@@ -29,11 +29,15 @@
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $tps->name }}</td>
-            <td>{{ $tps->user->name }}</td>
+            <td>
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detailTpsModal{{ $tps->id }}">
+                Detail
+              </button>
+            </td>
             <td>{{ $tps->kelurahanElection->name }}</td>
             <td>{{ $tps->kelurahanElection->kecamatanElection->name }}</td>
-              <td>
-                <form action="{{ route('dashboard.tps.destroy', $tps->id) }}" method="POST" style="display:inline-block;">
+            <td>
+              <form action="{{ route('dashboard.tps.destroy', $tps->id) }}" method="POST" style="display:inline-block;">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
@@ -90,6 +94,73 @@
   </div>
 </div>
 <!-- / Modal Create TPS -->
+
+<!-- Modal Detail TPS -->
+@foreach ($tpsElections as $tps)
+<div class="modal fade" id="detailTpsModal{{ $tps->id }}" tabindex="-1" aria-labelledby="detailTpsModalLabel{{ $tps->id }}" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailTpsModalLabel{{ $tps->id }}">Detail TPS: {{ $tps->name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Informasi TPS</h6>
+        <p><strong>Nama:</strong> {{ $tps->name }}</p>
+        <p><strong>PJ TPS:</strong> {{ $tps->user->name }}</p>
+        <p><strong>Kelurahan:</strong> {{ $tps->kelurahanElection->name }}</p>
+        <p><strong>Kecamatan:</strong> {{ $tps->kelurahanElection->kecamatanElection->name }}</p>
+        <p><strong>Total Undangan:</strong> {{ $tps->total_invitation }}</p>
+
+        <h6 class="mt-4">Daftar Penanggung Jawab</h6>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Email</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($tps->tpsElectionDetails as $detail)
+            <tr>
+              <td>{{ $detail->user->name }}</td>
+              <td>{{ $detail->user->email }}</td>
+              <td>
+                <form action="{{ route('dashboard.tps.destroyDetail', $detail->id) }}" method="POST" style="display:inline-block;">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Hapus</button>
+                </form>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+
+        <h6 class="mt-4">Tambah Tim TPS</h6>
+        <form action="{{ route('dashboard.tps.storeDetail') }}" method="POST">
+          @csrf
+          <input type="hidden" name="tps_election_id" value="{{ $tps->id }}">
+          <div class="mb-3">
+            <label for="user_id" class="form-label">Pilih Tim TPS</label>
+            <select class="form-select" id="user_id" name="user_id" required>
+              <option value="">Pilih Tim TPS</option>
+              @foreach($users as $user)
+                <option value="{{ $user->id }}">{{ $user->name }}</option>
+              @endforeach
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Tambah Tim TPS</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
 
 <!-- / Content -->
 @endsection

@@ -103,7 +103,7 @@
     </section>
 
     <section class="kecamatan mb-4">
-        <h2 class="section-title">{{ !$activeKecamatanElection ? 'Semua Kecamatan' : $activeKecamatanElection->name }}</h2>
+        <h2 class="section-title">{{ !$activeKecamatanElection ? 'Semua Kecamatan' : $activeKecamatanElection->name }} {{ Auth::user()->role->name !== 'admin' ? ' di ' . Auth::user()->kecamatanElection->name : '' }}</h2>
         <div class="kecamatan-wrapper">
             <div class="d-flex">
                 <div class="kecamatan-item {{ !$activeKecamatanElection ? 'bg-success' : '' }}">
@@ -141,14 +141,14 @@
         @if($activeKecamatanElection)
         <h5 class="section-title">Kelurahan di Kecamatan <span class="text-success">{{ $activeKecamatanElection->name }}</span> <br> <span class="text-primary">{{ $activeKecamatanElection->user->name }}</span></h5>
         @else
-        <h5 class="section-title">Kelurahan di Semua Kecamatan</h5>
+        <h5 class="section-title">Kelurahan {{ Auth::user()->role->name !== 'admin' ? 'di Kecamatan ' . Auth::user()->kecamatanElection->name : 'di Semua Kecamatan' }}</h5>
         @endif
         <div class="row g-3">
             @foreach($kelurahanElections as $kelurahanElection)
             <div class="col-md-6 col-lg-6 col-6">
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
-                        <h3 class="card-title">Kelurahan {{ $kelurahanElection->name }}</h3>
+                        <h3 class="card-title">Kel {{ $kelurahanElection->name }}</h3>
                         <p class="card-text mb-2">PJ: {{ $kelurahanElection->user->name }}</p>
                         <p class="card-text">Jumlah Pemilih: {{ number_format($kelurahanElection->participantElections->count() ?? 0, 0, ',', '.') }} / {{ number_format($kelurahanElection->tpsElection->sum('total_invitation') ?? 0, 0, ',', '.') }}</p>
                         <div class="mt-auto">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\KelurahanElection;
 use App\Models\TpsElection;
+use App\Models\TpsElectionDetail;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class TpsElectionController extends Controller
         
         // Mengambil pengguna dengan role_id 2, status 1, dan belum memiliki TPS Election
         $users = User::where('role_id', 2)
+                     ->whereDoesntHave('tpsElectionDetails')
                      ->whereDoesntHave('tpsElection')
                      ->whereDoesntHave('kelurahanElection')
                      ->whereDoesntHave('kecamatanElection')
@@ -40,5 +42,19 @@ class TpsElectionController extends Controller
         $tps = TpsElection::find($id);
         $tps->delete();
         return redirect()->route('dashboard.tps.index')->with('success', 'TPS deleted successfully');
+    }
+
+    public function storeDetail(Request $request)
+    {
+        $data = $request->only('tps_election_id', 'user_id');
+        TpsElectionDetail::create($data);
+        return redirect()->route('dashboard.tps.index')->with('success', 'TPS detail created successfully');
+    }
+
+    public function destroyDetail($id)
+    {
+        $tpsDetail = TpsElectionDetail::find($id);
+        $tpsDetail->delete();
+        return redirect()->route('dashboard.tps.index')->with('success', 'TPS detail deleted successfully');
     }
 }

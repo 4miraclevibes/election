@@ -35,6 +35,7 @@
 
 @section('content')
 <div class="container py-4">
+    @if(Auth::user()->tpsElectionDetails)
     <section class="entriData">
         <form action="{{ route('participant.store') }}" method="post">
             @csrf
@@ -55,8 +56,9 @@
         <button type="submit" class="btn btn-primary btn-sm">Submit</button>
     </form>
     </section>
+    @endif
     <section class="data mt-5">
-        <h5 class="section-title mb-3">Data Pemilih <span class="text-success">Tps {{ Auth::user()->tpsElection->name }}</span></h5>
+        <h5 class="section-title mb-3">Data Pemilih <span class="text-success">Tps {{ Auth::user()->tpsElectionDetails->tpsElection->name }}</span></h5>
         <h5>Total Pemilih: {{ $participantElection->count() }}</h5>
         <div class="row g-3">
             @foreach($participantElection as $participantElection)
@@ -67,6 +69,7 @@
                         <p class="card-text mb-0">Name: {{ $participantElection->name }}</p>
                         <p class="card-text mb-0">Nik: {{ $participantElection->nik }}</p>
                         <p class="card-text mb-0">Phone: {{ $participantElection->phone }}</p>
+                        <p class="card-text mb-0">Petugas: {{ $participantElection->tpsElectionDetail->user->name }}</p>
                         <form action="{{ route('participant.destroy', $participantElection->id) }}" method="post" class="mt-2">
                             @csrf
                             @method('DELETE')
