@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
-class KecamatanElectionSeeder extends Seeder
+class SawahluntoElectionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,17 +16,10 @@ class KecamatanElectionSeeder extends Seeder
     public function run(): void
     {
         $kecamatanData = [
-            'Bungus Teluk Kabung' => ['Bungus Barat', 'Bungus Selatan', 'Bungus Timur', 'Teluk Kabung Selatan', 'Teluk Kabung Tengah', 'Teluk Kabung Utara'],
-            'Lubuk Kilangan' => ['Bandar Buat', 'Indarung', 'Koto Lalang', 'Padang Besi', 'Tarantang', 'Beringin'],
-            'Lubuk Begalung' => ['Cengkeh Nan XX', 'Gurun Laweh Lubuk Begalung', 'Kampung Jua', 'Koto Baru', 'Lubuk Begalung Nan XX', 'Pampangan', 'Pegambiran Ampalu Nan XX', 'Tanjung Saba Pitameh'],
-            'Padang Selatan' => ['Alang Laweh', 'Batang Arau', 'Belakang Pondok', 'Bukit Gado-gado', 'Mato Aie', 'Pasa Gadang', 'Ranah Parak Rumbio', 'Rawang', 'Seberang Padang', 'Seberang Palinggam', 'Teluk Bayur'],
-            'Padang Timur' => ['Andalas', 'Ganting Parak Gadang', 'Jati', 'Kubu Marapalam', 'Parak Gadang Timur', 'Sawahan', 'Simpang Haru'],
-            'Padang Barat' => ['Belakang Tangsi', 'Berok Nipah', 'Kampung Jao', 'Kampung Pondok', 'Olo', 'Padang Pasir', 'Purus', 'Rimbo Kaluang'],
-            'Padang Utara' => ['Air Tawar Barat', 'Air Tawar Timur', 'Alai Parak Kopi', 'Gunung Pangilun', 'Lolong Belanti', 'Ulak Karang Selatan', 'Ulak Karang Utara'],
-            'Nanggalo' => ['Gurun Laweh Nanggalo', 'Kampung Lapai', 'Kurao Pagang', 'Surau Gadang', 'Tabing Banda Gadang', 'Kampung Olo'],
-            'Kuranji' => ['Anduring', 'Gunung Sarik', 'Kalumbuk', 'Korong Gadang', 'Kuranji', 'Lubuk Lintah', 'Pasar Ambacang', 'Sungai Sapih', 'Ampang'],
-            'Pauh' => ['Cupak Tangah', 'Kapalo Koto', 'Koto Luar', 'Lambung Bukit', 'Limau Manis', 'Limau Manis Selatan', 'Pisang', 'Binuang Kampung Dalam'],
-            'Koto Tangah' => ['Aie Pacah', 'Balai Gadang', 'Batang Kabung Ganting', 'Batipuh Panjang', 'Bungo Pasang', 'Dadok Tunggul Hitam', 'Koto Panjang Ikua Koto', 'Lubuk Buaya', 'Padang Sarai', 'Parupuk Tabing', 'Pasie Nan Tigo'],
+            'Barangin' => ['Rantih', 'Sijantang Koto', 'Air Dingin', 'Kolok Nan Tuo', 'Lumindai', 'Talawi Hilir', 'Talawi Mudik'],
+            'Lembah Segar' => ['Muaro Kalaban', 'Pasar Remaja', 'Tanah Lapang', 'Air Segar'],
+            'Silungkang' => ['Silungkang Oso', 'Silungkang Duo', 'Silungkang Tigo', 'Muaro Kalaban Silungkang'], // Ubah ini
+            'Talawi' => ['Datar Mansiang', 'Batu Tanjung', 'Tumpuk Tangah', 'Sikalang', 'Bukik Gadang', 'Kumbayau', 'Sangting'],
         ];
 
         foreach ($kecamatanData as $kecamatanName => $kelurahanList) {
@@ -44,7 +37,7 @@ class KecamatanElectionSeeder extends Seeder
             $kecamatanId = DB::table('kecamatan_elections')->insertGetId([
                 'name' => $kecamatanName,
                 'user_id' => $kecamatanUserId,
-                'slug' => Str::slug($kecamatanName), // Tambahkan ini
+                'slug' => Str::slug($kecamatanName),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -65,7 +58,7 @@ class KecamatanElectionSeeder extends Seeder
                     'user_id' => $kelurahanUserId,
                     'kecamatan_election_id' => $kecamatanId,
                     'name' => $kelurahanName,
-                    'slug' => Str::slug($kelurahanName),
+                    'slug' => Str::slug($kecamatanName . ' ' . $kelurahanName), // Tambahkan nama kecamatan ke slug
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

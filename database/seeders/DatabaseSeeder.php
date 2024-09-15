@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RoleSeeder::class,
-            KecamatanElectionSeeder::class,
+            // PadangElectionSeeder::class,
+            SawahluntoElectionSeeder::class,
         ]);
     }
 }
