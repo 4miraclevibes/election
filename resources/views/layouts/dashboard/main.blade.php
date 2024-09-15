@@ -16,8 +16,8 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Sayur On Delivery</title>
-    <link rel="icon" href="{{ asset('assets/landing/images/LogoSod.png') }}" type="image/x-icon">
+    <title>Derisesni</title>
+    <link rel="icon" href="{{ asset('assets/landing/images/banner-derisesni.png') }}" type="image/x-icon">
 
     <meta name="description" content="" />
 
