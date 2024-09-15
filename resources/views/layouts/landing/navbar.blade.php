@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar border-bottom">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img src="{{ asset('assets/landing/images/banner-derisesni.png') }}" alt="Logo" height="30">
