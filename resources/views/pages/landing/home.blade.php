@@ -99,7 +99,7 @@
 @section('content')
 <div class="container py-4">
     <section class="banner mb-4">
-        <img src="https://filemanager.layananberhentikuliah.com/storage/files/3QRbmUXtT8qvsBjD1ctUYFQT3H2iCzK1xKUVSv32.png" alt="Banner" class="w-100">
+        <img src="{{ asset('assets/landing/images/derisesni.png') }}" alt="Banner" class="w-100">
     </section>
 
     <section class="kecamatan mb-4">
