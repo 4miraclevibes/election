@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [LandingController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
 Route::get('/dashboard', function () {
-    if (Auth::user()->role_id !== 'admin') { // Asumsikan role_id 1 adalah admin
+    if (Auth::user()->role->name !== 'admin') { // Asumsikan role_id 1 adalah admin
         return redirect()->route('home')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
     }
     return view('dashboard');
