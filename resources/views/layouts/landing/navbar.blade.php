@@ -12,7 +12,7 @@
                     <a class="nav-link bg-success text-white rounded-pill px-3 py-2" href="{{ route('login') }}">Masuk</a>
                 </li>
             @else
-                @if(Auth::user()->role->name === 'admin')
+                @if(Auth::user()->role->name == 'admin')
                     <li class="nav-item me-3">
                         <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
