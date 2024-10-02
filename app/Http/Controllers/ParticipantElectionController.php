@@ -27,6 +27,11 @@ class ParticipantElectionController extends Controller
             'phone' => 'required',
         ]);
 
+        if(ParticipantElection::where('nik', $request->nik)->exists()){
+            return redirect()->route('participant.index')->with('error', 'NIK sudah terdaftar');
+        }
+
+
         $data = $request->only('name', 'nik', 'phone');
         $data['tps_election_id'] = Auth::user()->tpsElectionDetails->tpsElection->id;
         $data['tps_election_detail_id'] = Auth::user()->tpsElectionDetails->id;
