@@ -46,7 +46,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nik</label>
-            <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Nik" name="nik">    
+            <input type="number" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Nik" name="nik">    
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Phone</label>
