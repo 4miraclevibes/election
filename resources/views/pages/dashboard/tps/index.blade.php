@@ -18,6 +18,8 @@
           <tr class="text-nowrap table-dark">
             <th class="text-white">No</th>
             <th class="text-white">Name</th>
+            <th class="text-white">Total Memilih</th>
+            <th class="text-white">Total Pemilih</th>
             <th class="text-white">PJ TPS</th>
             <th class="text-white">Kelurahan</th>
             <th class="text-white">Kecamatan</th>
@@ -29,6 +31,8 @@
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $tps->name }}</td>
+            <td>{{ $tps->participantElection->count() }}</td>
+            <td>{{ $tps->total_invitation }}</td>
             <td>
               <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detailTpsModal{{ $tps->id }}">
                 Detail
@@ -75,6 +79,10 @@
           <div class="mb-3">
             <label for="name" class="form-label">Nama TPS</label>
             <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="total_invitation" class="form-label">Jumlah Pemilih</label>
+            <input type="number" class="form-control" id="total_invitation" name="total_invitation" required>
           </div>
           <div class="mb-3">
             <label for="user_id" class="form-label">Penanggung Jawab</label>

@@ -30,9 +30,8 @@ class TpsElectionController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->only('kelurahan_election_id', 'name', 'user_id');
+        $data = $request->only('kelurahan_election_id', 'name', 'user_id', 'total_invitation');
         $data['slug'] = Str::slug($data['name']);
-        $data['total_invitation'] = 0;
         TpsElection::create($data);
         return redirect()->route('dashboard.tps.index')->with('success', 'TPS created successfully');
     }
