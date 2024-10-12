@@ -131,6 +131,7 @@
             <tr>
               <th>Nama</th>
               <th>Email</th>
+              <th>Dukungan</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -139,6 +140,7 @@
             <tr>
               <td>{{ $detail->user->name }}</td>
               <td>{{ $detail->user->email }}</td>
+              <td>{{ $detail->participantElection->count() }} / {{ $detail->tpsElection->tpsParticipant->count() ?? 0 }}</td>
               <td>
                 <form action="{{ route('dashboard.tps.destroyDetail', $detail->id) }}" method="POST" style="display:inline-block;">
                   @csrf
@@ -148,6 +150,14 @@
               </td>
             </tr>
             @endforeach
+            <tr>
+              <td colspan="2"><strong>Total Dukungan</strong></td>
+              <td>
+                {{ $tps->tpsElectionDetails->sum(function($detail) {
+                  return $detail->participantElection->count();
+                }) }} / {{ $tps->tpsParticipant->count() ?? 0 }}
+              </td>
+            </tr>
           </tbody>
         </table>
 

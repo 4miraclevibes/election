@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tps_participants', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tps_election_id')->constrained('tps_elections');
+            $table->foreignId('tps_election_id')->constrained('tps_elections')->onDelete('cascade');
             $table->string('name');
             $table->string('address')->nullable();
             $table->enum('sex', ['L', 'P'])->nullable();
