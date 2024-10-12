@@ -41,18 +41,18 @@
             @csrf
             <div class="row">
                 <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Name</label>
-            <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Name" name="name">
+            <label for="exampleFormControlInput1" class="form-label">Nama</label>
+            <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Nama" name="name">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Address</label>
-            <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Address" name="address">    
+            <label for="exampleFormControlInput1" class="form-label">Alamat</label>
+            <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Alamat" name="address">    
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Phone</label>
-            <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Phone" name="phone">
+                    <label for="exampleFormControlInput1" class="form-label">No. Telp</label>
+                    <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="No. Telp" name="phone">
+                </div>
             </div>
-        </div>
         <button type="submit" class="btn btn-primary btn-sm">Submit</button>
     </form>
     </section>
@@ -66,9 +66,9 @@
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                         <h3 class="card-title">Tps {{ $participantElection->tpsElection->name }}</h3>
-                        <p class="card-text mb-0">Name: {{ $participantElection->name }}</p>
-                        <p class="card-text mb-0">Address: {{ $participantElection->address }}</p>
-                        <p class="card-text mb-0">Phone: {{ $participantElection->phone }}</p>
+                        <p class="card-text mb-0">Nama: {{ $participantElection->name }}</p>
+                        <p class="card-text mb-0">Alamat: {{ $participantElection->address }}</p>
+                        <p class="card-text mb-0">No. Telp: {{ $participantElection->phone }}</p>
                         <p class="card-text mb-0">Petugas: {{ $participantElection->tpsElectionDetail->user->name }}</p>
                         <form action="{{ route('participant.destroy', $participantElection->id) }}" method="post" class="mt-2">
                             @csrf

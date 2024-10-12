@@ -30,11 +30,11 @@
                   <div data-i18n="Analytics">Users</div>
                 </a>
               </li>
-              {{-- TPS Election --}}
-              <li class="menu-item {{ Route::is('dashboard.tps*') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.tps.index') }}" class="menu-link">
+              {{-- Kecamatan Election --}}
+              <li class="menu-item {{ Route::is('dashboard.kecamatan*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.kecamatan.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-home"></i>
-                  <div data-i18n="Analytics">TPS</div>
+                  <div data-i18n="Analytics">Kecamatan</div>
                 </a>
               </li>
               {{-- Kelurahan Election --}}
@@ -44,11 +44,11 @@
                   <div data-i18n="Analytics">Kelurahan</div>
                 </a>
               </li>
-              {{-- Kecamatan Election --}}
-              <li class="menu-item {{ Route::is('dashboard.kecamatan*') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.kecamatan.index') }}" class="menu-link">
+              {{-- TPS Election --}}
+              <li class="menu-item {{ Route::is('dashboard.tps*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.tps.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-home"></i>
-                  <div data-i18n="Analytics">Kecamatan</div>
+                  <div data-i18n="Analytics">TPS</div>
                 </a>
               </li>
               {{-- Participant --}}

@@ -19,10 +19,10 @@
         <thead>
           <tr class="text-nowrap table-dark">
             <th class="text-white">No</th>
-            <th class="text-white">Name</th>
-            <th class="text-white">Address</th>
-            <th class="text-white">Sex</th>
-            <th class="text-white">Age</th>
+            <th class="text-white">Nama</th>
+            <th class="text-white">Alamat</th>
+            <th class="text-white">Jenis Kelamin</th>
+            <th class="text-white">Umur</th>
             <th class="text-white">TPS</th>
             <th class="text-white">Kelurahan</th>
             <th class="text-white">Kecamatan</th>
