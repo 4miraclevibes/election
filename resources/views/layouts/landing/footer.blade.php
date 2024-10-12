@@ -9,7 +9,7 @@
             </div>
             <div class="col-3 text-center">
                 <a href="{{ route('participant.index') }}" class="text-decoration-none @auth{{ Auth::user()->tpsElectionDetails == null ? 'disabled' : '' }} @else disabled @endauth">
-                    <i class="bi bi-cart{{ Route::is('participant.index') ? '-fill text-success' : ' text-secondary' }} fs-5"></i>
+                    <i class="bi bi-clipboard2-data{{ Route::is('participant.index') ? '-fill text-success' : ' text-secondary' }} fs-5"></i>
                     <p class="mb-0 small {{ Route::is('participant.index') ? 'text-success' : 'text-secondary' }}">Entri Data</p>
                 </a>
             </div>
