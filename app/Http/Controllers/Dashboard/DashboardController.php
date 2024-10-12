@@ -52,11 +52,27 @@ class DashboardController extends Controller
         $kelurahanLabels = $kelurahanData->pluck('name')->toArray();
         $kelurahanValues = $kelurahanData->pluck('percentage')->toArray();
 
+        // Data untuk chart Jumlah dukungan tanpa NIK per Kelurahan
+        $dukunganTanpaNikData = ParticipantElection::whereNull('nik')
+            ->orWhere('nik', '')
+            ->select('kelurahan_elections.name as kelurahan_name', DB::raw('COUNT(*) as count'))
+            ->join('tps_elections', 'participant_elections.tps_election_id', '=', 'tps_elections.id')
+            ->join('kelurahan_elections', 'tps_elections.kelurahan_election_id', '=', 'kelurahan_elections.id')
+            ->groupBy('kelurahan_elections.id', 'kelurahan_elections.name')
+            ->orderByDesc('count')
+            ->take(5)
+            ->get();
+
+        $dukunganTanpaNikLabels = $dukunganTanpaNikData->pluck('kelurahan_name')->toArray();
+        $dukunganTanpaNikValues = $dukunganTanpaNikData->pluck('count')->toArray();
+
         return view('dashboard', [
             'kecamatanLabels' => json_encode($kecamatanLabels),
             'kecamatanValues' => json_encode($kecamatanValues),
             'kelurahanLabels' => json_encode($kelurahanLabels),
-            'kelurahanValues' => json_encode($kelurahanValues)
+            'kelurahanValues' => json_encode($kelurahanValues),
+            'dukunganTanpaNikLabels' => json_encode($dukunganTanpaNikLabels),
+            'dukunganTanpaNikValues' => json_encode($dukunganTanpaNikValues)
         ]);
     }
 }

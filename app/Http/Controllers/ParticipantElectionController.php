@@ -23,11 +23,11 @@ class ParticipantElectionController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'nik' => 'required',
-            'phone' => 'required',
+            'nik' => 'nullable',
+            'phone' => 'nullable',
         ]);
 
-        if(ParticipantElection::where('nik', $request->nik)->exists()){
+        if($request->nik && ParticipantElection::where('nik', $request->nik)->exists()){
             return redirect()->route('participant.index')->with('error', 'NIK sudah terdaftar');
         }
 
