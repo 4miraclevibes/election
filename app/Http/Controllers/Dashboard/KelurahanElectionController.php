@@ -18,10 +18,11 @@ class KelurahanElectionController extends Controller
 
         // Mengambil pengguna dengan role_id 2, status 1, dan belum memiliki TPS Election
         $users = User::where('role_id', 2)
-        ->whereDoesntHave('tpsElection')
-        ->whereDoesntHave('kelurahanElection')
-        ->whereDoesntHave('kecamatanElection')
-        ->get();
+            ->whereDoesntHave('tpsElectionDetails')
+            ->whereDoesntHave('tpsElection')
+            ->whereDoesntHave('kelurahanElection')
+            ->whereDoesntHave('kecamatanElection')
+            ->get();
         return view('pages.dashboard.kelurahan.index', compact('kelurahanElections', 'users', 'kecamatanElections'));
     }
 
