@@ -47,4 +47,10 @@ class KelurahanElectionController extends Controller
 
         return redirect()->route('dashboard.kelurahan.index')->with('success', 'Kelurahan deleted successfully');
     }
+
+    public function show($id)
+    {
+        $kelurahanElection = KelurahanElection::find($id);
+        return view('pages.dashboard.kelurahan.show', compact('kelurahanElection'));
+    }
 }

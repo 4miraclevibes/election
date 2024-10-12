@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('participant_elections', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('nik');
-            $table->string('phone');
+            $table->string('nik')->nullable();
+            $table->string('phone')->nullable();
             $table->foreignId('tps_election_id')->constrained('tps_elections')->onDelete('cascade');
             $table->foreignId('tps_election_detail_id')->constrained('tps_election_details')->onDelete('cascade');
             $table->timestamps();

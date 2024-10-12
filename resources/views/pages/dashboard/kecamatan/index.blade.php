@@ -30,13 +30,14 @@
             <td>{{ $kecamatan->name }}</td>
             <td>{{ $kecamatan->user->email }}</td>
             <td>{{ $kecamatan->user->name }}</td>
-              <td>
-                <form action="{{ route('dashboard.kecamatan.destroy', $kecamatan->id) }}" method="POST" style="display:inline-block;">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-                </form>
-              </td>
+            <td>
+              <a href="{{ route('dashboard.kecamatan.show', $kecamatan->id) }}" class="btn btn-info btn-sm">Show</a>
+              <form action="{{ route('dashboard.kecamatan.destroy', $kecamatan->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+              </form>
+            </td>
           </tr>
           @endforeach
         </tbody>

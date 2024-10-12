@@ -42,4 +42,10 @@ class KecamatanElectionController extends Controller
 
         return redirect()->route('dashboard.kecamatan.index')->with('success', 'Kecamatan deleted successfully');
     }
+
+    public function show($id)
+    {
+        $kecamatanElection = KecamatanElection::find($id);
+        return view('pages.dashboard.kecamatan.show', compact('kecamatanElection'));
+    }
 }

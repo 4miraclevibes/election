@@ -57,4 +57,10 @@ class TpsElectionController extends Controller
         $tpsDetail->delete();
         return redirect()->route('dashboard.tps.index')->with('success', 'TPS detail deleted successfully');
     }
+
+    public function show($id)
+    {
+        $tpsElection = TpsElection::find($id);
+        return view('pages.dashboard.tps.show', compact('tpsElection'));
+    }
 }

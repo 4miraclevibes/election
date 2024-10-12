@@ -31,11 +31,6 @@ class KelurahanElection extends Model
         return $this->belongsTo(KecamatanElection::class);
     }
 
-    public function participantElection()
-    {
-        return $this->hasMany(ParticipantElection::class);
-    }
-
     public function participantElections()
     {
         return $this->hasManyThrough(ParticipantElection::class, TpsElection::class);

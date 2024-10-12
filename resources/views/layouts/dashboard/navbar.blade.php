@@ -17,8 +17,8 @@
   
             <ul class="menu-inner py-1 mt-3">
               {{-- Dashboard --}}
-              <li class="menu-item {{ Route::is('dashboard') ? 'active' : '' }}">
-                <a href="{{ route('dashboard') }}" class="menu-link">
+              <li class="menu-item {{ Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.dashboard') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-home"></i>
                   <div data-i18n="Analytics">Dashboard</div>
                 </a>

@@ -32,13 +32,14 @@
             <td>{{ $kelurahan->user->email }}</td>
             <td>{{ $kelurahan->user->name }}</td>
             <td>{{ $kelurahan->kecamatanElection->name }}</td>
-              <td>
-                <form action="{{ route('dashboard.kelurahan.destroy', $kelurahan->id) }}" method="POST" style="display:inline-block;">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-                </form>
-              </td>
+            <td>
+              <a href="{{ route('dashboard.kelurahan.show', $kelurahan->id) }}" class="btn btn-info btn-sm">Show</a>
+              <form action="{{ route('dashboard.kelurahan.destroy', $kelurahan->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+              </form>
+            </td>
           </tr>
           @endforeach
         </tbody>

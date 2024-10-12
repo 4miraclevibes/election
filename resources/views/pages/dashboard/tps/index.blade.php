@@ -37,6 +37,7 @@
             <td>{{ $tps->kelurahanElection->name }}</td>
             <td>{{ $tps->kelurahanElection->kecamatanElection->name }}</td>
             <td>
+              <a href="{{ route('dashboard.tps.show', $tps->id) }}" class="btn btn-info btn-sm">Show</a>
               <form action="{{ route('dashboard.tps.destroy', $tps->id) }}" method="POST" style="display:inline-block;">
                   @csrf
                   @method('DELETE')
