@@ -38,4 +38,18 @@ class KecamatanElection extends Model
         )->join('tps_elections', 'tps_elections.id', '=', 'participant_elections.tps_election_id')
          ->where('tps_elections.kelurahan_election_id', '=', DB::raw('kelurahan_elections.id'));
     }
+
+    public function totalParticipant()
+    {
+        return $this->participantElections->count();
+    }
+
+    public function totalInvitation()
+    {
+        return $this->kelurahanElection()
+            ->with('tpsElection')
+            ->get()
+            ->flatMap->tpsElection
+            ->sum('total_invitation');
+    }
 }

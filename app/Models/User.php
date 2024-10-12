@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(TpsElectionDetail::class);
     }
+
+    public function kelurahanDetails()
+    {
+        return $this->hasOne(KelurahanDetail::class);
+    }
 }

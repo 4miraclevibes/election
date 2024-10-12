@@ -35,4 +35,19 @@ class KelurahanElection extends Model
     {
         return $this->hasManyThrough(ParticipantElection::class, TpsElection::class);
     }
+
+    public function totalParticipant()
+    {
+        return $this->participantElections->count();
+    }
+
+    public function totalInvitation()
+    {
+        return $this->tpsElection->sum('total_invitation');
+    }
+
+    public function kelurahanDetails()
+    {
+        return $this->hasMany(KelurahanDetail::class);
+    }
 }

@@ -18,6 +18,7 @@ class KecamatanElectionController extends Controller
                      ->whereDoesntHave('tpsElection')
                      ->whereDoesntHave('kelurahanElection')
                      ->whereDoesntHave('kecamatanElection')
+                     ->whereDoesntHave('kelurahanDetails')
                      ->get();
         return view('pages.dashboard.kecamatan.index', compact('kecamatanElections', 'users'));
     }

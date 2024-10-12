@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ParticipantElection;
 use App\Models\TpsElection;
+use App\Models\TpsParticipant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,19 +24,34 @@ class ParticipantElectionController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'nik' => 'nullable',
+            'address' => 'required',
             'phone' => 'nullable',
         ]);
 
-        if($request->nik && ParticipantElection::where('nik', $request->nik)->exists()){
-            return redirect()->route('participant.index')->with('error', 'NIK sudah terdaftar');
+        // Cek apakah nama dan alamat ada di TpsParticipant
+        $tpsParticipant = TpsParticipant::where('name', $request->name)
+                                        ->where('address', $request->address)
+                                        ->first();
+
+        if (!$tpsParticipant) {
+            return redirect()->route('participant.index')->with('error', 'Error: Nama dan alamat tidak terdaftar di data TPS');
         }
 
+        // Cek apakah sudah terdaftar di ParticipantElection
+        if (ParticipantElection::where('name', $request->name)
+                               ->where('address', $request->address)
+                               ->exists()) {
+            return redirect()->route('participant.index')->with('error', 'Error: Participant sudah terdaftar');
+        }
 
-        $data = $request->only('name', 'nik', 'phone');
-        $data['tps_election_id'] = Auth::user()->tpsElectionDetails->tpsElection->id;
+        // Jika lolos semua pengecekan, buat participant baru
+        $data = $request->only('name', 'address', 'phone');
+        $data['tps_election_id'] = $tpsParticipant->tps_election_id;
         $data['tps_election_detail_id'] = Auth::user()->tpsElectionDetails->id;
         ParticipantElection::create($data);
+
+        // Update status TpsParticipant menjadi 'done'
+        $tpsParticipant->update(['status' => 'done']);
 
         return redirect()->route('participant.index')->with('success', 'Data berhasil disimpan');
     }

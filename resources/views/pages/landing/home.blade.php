@@ -151,7 +151,6 @@
                         <h3 class="card-title">Kel {{ $kelurahanElection->name }}</h3>
                         <p class="card-text mb-2">PJ: {{ $kelurahanElection->user->name }}</p>
                         <p class="card-text">Dukungan: {{ number_format($kelurahanElection->participantElections->count() ?? 0, 0, ',', '.') }} / {{ number_format($kelurahanElection->tpsElection->sum('total_invitation') ?? 0, 0, ',', '.') }}</p>
-                        <p class="card-text">Dukungan Tanpa NIK: {{ number_format($kelurahanElection->participantElections->whereNull('nik')->count() ?? 0, 0, ',', '.') }}</p>
                         <div class="mt-auto">
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="#" class="btn-detail text-decoration-none" 
@@ -159,7 +158,6 @@
                                    data-kelurahan-name="{{ $kelurahanElection->name }}"
                                    data-kelurahan-pemilih="{{ number_format($kelurahanElection->tpsElection->sum('total_invitation') ?? 0, 0, ',', '.') }}"
                                    data-memilih="{{ number_format($kelurahanElection->participantElections->count() ?? 0, 0, ',', '.') }}"
-                                   data-memilih-tanpa-nik="{{ number_format($kelurahanElection->participantElections->whereNull('nik')->count() ?? 0, 0, ',', '.') }}"
                                    data-tps-election="{{ json_encode($kelurahanElection->tpsElection->map(function($tpsElection) {
                                        return [
                                            'id' => $tpsElection->id,
@@ -168,7 +166,6 @@
                                            'email' => $tpsElection->user->email,
                                            'jumlah_pemilih' => $tpsElection->total_invitation ?? 0,
                                            'jumlah_memilih' => $tpsElection->participantElection->count() ?? 0,
-                                           'jumlah_memilih_tanpa_nik' => $tpsElection->participantElection->whereNull('nik')->count() ?? 0,
                                        ];
                                    })) }}">Detail</a>
                             </div>
@@ -188,8 +185,6 @@
                     <h4 id="kelurahanName" class="mb-2"></h4>
                     <p id="totalPemilih" class="text-muted mb-2"></p>
                     <p id="totalMemilih" class="text-muted mb-2"></p>
-                    <p id="totalMemilihTanpaNik" class="text-muted mb-3"></p>
-                    
                     <h5 class="mb-3">Daftar TPS</h5>
                     <div id="tpsButtons" class="d-flex flex-wrap gap-2 mb-3">
                         <!-- TPS buttons akan ditambahkan secara dinamis menggunakan JavaScript -->
@@ -199,7 +194,6 @@
                     <p class="mb-0" style="font-size: 0.7rem">Email PJ TPS: <span id="tpsEmail" class="fw-bold"></span></p>
                     <p class="mb-0">Pemilih TPS: <span id="tpsPemilih" class="fw-bold"></span></p>
                     <p class="mb-0">Dukungan TPS: <span id="tpsMemilih" class="fw-bold"></span></p>
-                    <p class="mb-0">Tanpa NIK: <span id="tpsMemilihTanpaNik" class="fw-bold"></span></p>
                 </div>
             </div>
         </div>
@@ -221,13 +215,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const kelurahanName = this.dataset.kelurahanName;
             const kelurahanPemilih = this.dataset.kelurahanPemilih;
             const memilih = this.dataset.memilih;
-            const memilihTanpaNik = this.dataset.memilihTanpaNik;
             currentTPS = JSON.parse(this.dataset.tpsElection);
 
             document.getElementById('kelurahanName').textContent = kelurahanName;
             document.getElementById('totalPemilih').textContent = `Total Pemilih: ${kelurahanPemilih}`;
             document.getElementById('totalMemilih').textContent = `Total Memilih: ${memilih}`;
-            document.getElementById('totalMemilihTanpaNik').textContent = `Total Memilih Tanpa NIK: ${memilihTanpaNik}`;
             const tpsButtons = document.getElementById('tpsButtons');
             tpsButtons.innerHTML = '';
             currentTPS.forEach(tps => {
@@ -252,7 +244,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function selectTPS(tps) {
         document.getElementById('tpsPemilih').textContent = tps.jumlah_pemilih.toLocaleString('id-ID');
         document.getElementById('tpsMemilih').textContent = tps.jumlah_memilih.toLocaleString('id-ID');
-        document.getElementById('tpsMemilihTanpaNik').textContent = tps.jumlah_memilih_tanpa_nik.toLocaleString('id-ID');
         document.getElementById('tpsPj').textContent = tps.user_id;
         document.getElementById('tpsEmail').textContent = tps.email;
         document.querySelectorAll('.tps-button').forEach(btn => {

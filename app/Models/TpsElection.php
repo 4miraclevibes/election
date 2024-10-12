@@ -41,4 +41,9 @@ class TpsElection extends Model
     {
         return $this->hasMany(TpsElectionDetail::class);
     }
+
+    public function tpsParticipant()
+    {
+        return $this->hasMany(TpsParticipant::class);
+    }
 }

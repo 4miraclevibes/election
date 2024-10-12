@@ -31,7 +31,7 @@
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $tps->name }}</td>
-            <td>{{ $tps->participantElection->count() }}</td>
+            <td>{{ $tps->participantElection->count() }} / {{ $tps->tpsParticipant->count() ?? 0 }}</td>
             <td>{{ $tps->total_invitation }}</td>
             <td>
               <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detailTpsModal{{ $tps->id }}">
@@ -42,6 +42,9 @@
             <td>{{ $tps->kelurahanElection->kecamatanElection->name }}</td>
             <td>
               <a href="{{ route('dashboard.tps.show', $tps->id) }}" class="btn btn-info btn-sm">Show</a>
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadCsvModal{{ $tps->id }}">
+                Upload CSV
+              </button>
               <form action="{{ route('dashboard.tps.destroy', $tps->id) }}" method="POST" style="display:inline-block;">
                   @csrf
                   @method('DELETE')
@@ -167,6 +170,40 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
       </div>
+    </div>
+  </div>
+</div>
+@endforeach
+
+<!-- Modal Upload CSV -->
+@foreach ($tpsElections as $tps)
+<div class="modal fade" id="uploadCsvModal{{ $tps->id }}" tabindex="-1" aria-labelledby="uploadCsvModalLabel{{ $tps->id }}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadCsvModalLabel{{ $tps->id }}">Unggah CSV Peserta untuk TPS: {{ $tps->name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('dashboard.tps.uploadCsv', $tps->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="csv_file" class="form-label">Pilih file CSV</label>
+            <input type="file" class="form-control" id="csv_file" name="csv_file" accept=".csv" required>
+          </div>
+          <div class="mb-3">
+            <p>Format CSV yang diharapkan:</p>
+            <pre>
+              name,address,sex,age
+            </pre>
+            <p>Catatan: Pastikan data dalam CSV sesuai dengan format di atas.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Unggah CSV</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

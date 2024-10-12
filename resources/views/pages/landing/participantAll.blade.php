@@ -55,7 +55,7 @@
                         <h3 class="card-title">Kel: {{ $participantElection->tpsElection->kelurahanElection->name }}</h3>
                         <h3 class="card-title">Kec: {{ $participantElection->tpsElection->kelurahanElection->kecamatanElection->name }}</h3>
                         <p class="card-text mb-0">Name: {{ $participantElection->name }}</p>
-                        <p class="card-text mb-0">Nik: {{ $participantElection->nik }}</p>
+                        <p class="card-text mb-0">Address: {{ $participantElection->address }}</p>
                         <p class="card-text mb-0">Phone: {{ $participantElection->phone }}</p>
                         <form action="{{ route('participant.destroy', $participantElection->id) }}" method="post" class="mt-2">
                             @csrf

@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('participant_elections', function (Blueprint $table) {
+        Schema::create('tps_participants', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tps_election_id')->constrained('tps_elections');
             $table->string('name');
             $table->string('address')->nullable();
-            $table->string('phone')->nullable();
-            $table->foreignId('tps_election_id')->constrained('tps_elections')->onDelete('cascade');
-            $table->foreignId('tps_election_detail_id')->constrained('tps_election_details')->onDelete('cascade');
+            $table->enum('sex', ['L', 'P'])->nullable();
+            $table->integer('age')->nullable();
+            $table->enum('status', ['pending', 'done'])->default('pending');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('participant_elections');
+        Schema::dropIfExists('tps_participants');
     }
 };

@@ -30,9 +30,17 @@
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $kelurahan->name }}</td>
             <td>{{ $kelurahan->user->email }}</td>
-            <td>{{ $kelurahan->user->name }}</td>
+            <td>
+                - {{ $kelurahan->user->name }} <br>
+              @foreach ($kelurahan->kelurahanDetails as $kelurahanDetail)
+                - {{ $kelurahanDetail->user->name }} <br>
+              @endforeach
+            </td>
             <td>{{ $kelurahan->kecamatanElection->name }}</td>
             <td>
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addPjKelurahanModal{{ $kelurahan->id }}">
+                Tambah PJ
+              </button>
               <a href="{{ route('dashboard.kelurahan.show', $kelurahan->id) }}" class="btn btn-info btn-sm">Show</a>
               <form action="{{ route('dashboard.kelurahan.destroy', $kelurahan->id) }}" method="POST" style="display:inline-block;">
                 @csrf
@@ -91,6 +99,38 @@
   </div>
 </div>
 <!-- / Modal Create TPS -->
+
+<!-- Modal Tambah PJ Kelurahan -->
+@foreach ($kelurahanElections as $kelurahan)
+  <div class="modal fade" id="addPjKelurahanModal{{ $kelurahan->id }}" tabindex="-1" aria-labelledby="addPjKelurahanModalLabel{{ $kelurahan->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPjKelurahanModalLabel{{ $kelurahan->id }}">Tambah PJ Kelurahan: {{ $kelurahan->name }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{ route('dashboard.kelurahan.addPj', $kelurahan->id) }}" method="POST">
+          @csrf
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="user_id" class="form-label">Pilih Penanggung Jawab</label>
+              <select class="form-select" id="user_id" name="user_id" required>
+                <option value="">Pilih PJ</option>
+                @foreach($users as $user)
+                  <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+@endforeach
 
 <!-- / Content -->
 @endsection

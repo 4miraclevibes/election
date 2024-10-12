@@ -45,8 +45,8 @@
             <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Name" name="name">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Nik</label>
-            <input type="number" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Nik" name="nik">    
+            <label for="exampleFormControlInput1" class="form-label">Address</label>
+            <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="Address" name="address">    
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Phone</label>
@@ -67,7 +67,7 @@
                     <div class="card-body d-flex flex-column">
                         <h3 class="card-title">Tps {{ $participantElection->tpsElection->name }}</h3>
                         <p class="card-text mb-0">Name: {{ $participantElection->name }}</p>
-                        <p class="card-text mb-0">Nik: {{ $participantElection->nik }}</p>
+                        <p class="card-text mb-0">Address: {{ $participantElection->address }}</p>
                         <p class="card-text mb-0">Phone: {{ $participantElection->phone }}</p>
                         <p class="card-text mb-0">Petugas: {{ $participantElection->tpsElectionDetail->user->name }}</p>
                         <form action="{{ route('participant.destroy', $participantElection->id) }}" method="post" class="mt-2">

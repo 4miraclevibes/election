@@ -6,8 +6,7 @@
   <div class="card">
     <div class="card-header">
       <a href="{{ route('dashboard.kelurahan.index') }}" class="btn btn-secondary btn-sm mb-2">Back</a>
-      <p class="mb-0">Jumlah Dukungan: {{ $kelurahanElection->participantElections->count() }}</p>
-      <p class="mb-0">Jumlah Dukungan Tanpa NIK: {{ $kelurahanElection->participantElections->whereNull('nik')->count() }}</p>
+      <p class="mb-0">Jumlah Dukungan: {{ $kelurahanElection->totalParticipant() }} / {{ $kelurahanElection->totalInvitation() }}</p>
     </div>
   </div>
   <div class="card mt-2">
@@ -18,7 +17,7 @@
           <tr class="text-nowrap table-dark">
             <th class="text-white">No</th>
             <th class="text-white">Name</th>
-            <th class="text-white">Nik</th>
+            <th class="text-white">Address</th>
             <th class="text-white">Phone</th>
             <th class="text-white">Relawan</th>
             <th class="text-white">Kecamatan</th>
@@ -29,7 +28,7 @@
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $participantElection->name }}</td>
-            <td>{{ $participantElection->nik }}</td>
+            <td>{{ $participantElection->address }}</td>
             <td>{{ $participantElection->phone }}</td>
             <td>{{ $participantElection->tpsElectionDetail->user->name }}</td>
             <td>{{ $participantElection->tpsElection->name }}</td>

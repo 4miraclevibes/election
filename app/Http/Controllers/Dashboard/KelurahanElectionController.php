@@ -7,6 +7,7 @@ use App\Models\KelurahanElection;
 use App\Models\KecamatanElection;
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Models\KelurahanDetail;
 use Illuminate\Http\Request;
 
 class KelurahanElectionController extends Controller
@@ -22,6 +23,7 @@ class KelurahanElectionController extends Controller
             ->whereDoesntHave('tpsElection')
             ->whereDoesntHave('kelurahanElection')
             ->whereDoesntHave('kecamatanElection')
+            ->whereDoesntHave('kelurahanDetails')
             ->get();
         return view('pages.dashboard.kelurahan.index', compact('kelurahanElections', 'users', 'kecamatanElections'));
     }
@@ -38,6 +40,21 @@ class KelurahanElectionController extends Controller
         $data['slug'] = Str::slug($request->name);
         KelurahanElection::create($data);
         return redirect()->route('dashboard.kelurahan.index')->with('success', 'Kelurahan created successfully');
+    }
+
+    public function addPj(Request $request, $id)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $kelurahanElection = KelurahanElection::findOrFail($id);
+
+        KelurahanDetail::create([
+            'kelurahan_election_id' => $kelurahanElection->id,
+            'user_id' => $request->user_id
+        ]);
+        return redirect()->route('dashboard.kelurahan.index')->with('success', 'PJ added successfully');
     }
 
     public function destroy($id)

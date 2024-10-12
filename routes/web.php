@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\TpsParticipantController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -60,11 +61,16 @@ Route::group([
     Route::post('kelurahan/store', [KelurahanElectionController::class, 'store'])->name('kelurahan.store');
     Route::delete('kelurahan/destroy/{id}', [KelurahanElectionController::class, 'destroy'])->name('kelurahan.destroy');
     Route::get('kelurahan/show/{id}', [KelurahanElectionController::class, 'show'])->name('kelurahan.show');
+    Route::post('kelurahan/addPj/{id}', [KelurahanElectionController::class, 'addPj'])->name('kelurahan.addPj');
     // Kecamatan Election
     Route::get('kecamatan/index', [KecamatanElectionController::class, 'index'])->name('kecamatan.index');
     Route::post('kecamatan/store', [KecamatanElectionController::class, 'store'])->name('kecamatan.store');
     Route::delete('kecamatan/destroy/{id}', [KecamatanElectionController::class, 'destroy'])->name('kecamatan.destroy');
     Route::get('kecamatan/show/{id}', [KecamatanElectionController::class, 'show'])->name('kecamatan.show');
+    //Participant
+    Route::get('participant/index', [TpsParticipantController::class, 'index'])->name('participant.index');
+    // Tambahkan rute baru untuk upload CSV
+    Route::post('tps/{tps}/upload-csv', [TpsParticipantController::class, 'uploadCsv'])->name('tps.uploadCsv');
 });
 
 require __DIR__.'/auth.php';
