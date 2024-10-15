@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('tps_elections', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique();
             $table->integer('total_invitation');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('kelurahan_election_id')->constrained('kelurahan_elections')->onDelete('cascade');

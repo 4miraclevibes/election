@@ -7,7 +7,6 @@ use App\Models\KelurahanElection;
 use App\Models\TpsElection;
 use App\Models\TpsElectionDetail;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class TpsElectionController extends Controller
@@ -32,7 +31,6 @@ class TpsElectionController extends Controller
     public function store(Request $request)
     {
         $data = $request->only('kelurahan_election_id', 'name', 'user_id', 'total_invitation');
-        $data['slug'] = Str::slug($data['name']);
         TpsElection::create($data);
         return redirect()->route('dashboard.tps.index')->with('success', 'TPS created successfully');
     }

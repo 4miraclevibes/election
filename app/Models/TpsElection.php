@@ -13,7 +13,6 @@ class TpsElection extends Model
         'user_id',
         'kelurahan_election_id',
         'name',
-        'slug',
         'total_invitation',
     ];
 
