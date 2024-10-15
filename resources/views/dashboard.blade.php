@@ -1,5 +1,9 @@
 @extends('layouts.dashboard.main')
 
+@section('style')
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.0/css/buttons.dataTables.css" />
+@endsection
+
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h1 class="mb-4">Selamat datang {{ Auth::user()->name }}</h1>
@@ -134,9 +138,33 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $('#example1').DataTable();
-        $('#example2').DataTable();
-        $('#example3').DataTable();
+        $('#example1').DataTable({
+            layout: {
+                topStart: {
+                    buttons: ['excelHtml5', 'csvHtml5', 'pdfHtml5']
+                }
+            }
+        });
+        $('#example2').DataTable({
+            layout: {
+                topStart: {
+                    buttons: ['excelHtml5', 'csvHtml5', 'pdfHtml5']
+                }
+            }
+        });
+        $('#example3').DataTable({
+            layout: {
+                topStart: {
+                    buttons: ['excelHtml5', 'csvHtml5', 'pdfHtml5']
+                }
+            }
+        });
     });
 </script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 @endpush
