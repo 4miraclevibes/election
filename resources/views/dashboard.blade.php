@@ -11,7 +11,7 @@
                     <h5 class="card-title">Laporan Kecamatan</h5>
                 </div>
                 <div class="card-body">
-                    <table id="example" class="table table-striped table-bordered">
+                    <table id="example1" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Kecamatan</th>
@@ -134,7 +134,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $('#example').DataTable();
+        $('#example1').DataTable();
         $('#example2').DataTable();
         $('#example3').DataTable();
     });
