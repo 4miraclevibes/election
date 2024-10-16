@@ -14,7 +14,6 @@ class TpsElectionController extends Controller
     public function index()
     {
         $tpsElections = TpsElection::all();
-        dd($tpsElections);
         $kelurahanElections = KelurahanElection::all();
         
         // Mengambil pengguna dengan role_id 2, status 1, dan belum memiliki TPS Election
@@ -25,7 +24,7 @@ class TpsElectionController extends Controller
                      ->whereDoesntHave('kecamatanElection')
                      ->whereDoesntHave('kelurahanDetails')
                      ->get();
-        
+        dd($users);
         return view('pages.dashboard.tps.index', compact('tpsElections', 'kelurahanElections', 'users'));
     }
 
