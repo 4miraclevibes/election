@@ -8,15 +8,20 @@ use App\Models\TpsElection;
 use App\Models\TpsElectionDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TpsElectionController extends Controller
 {
     public function index()
     {
-        $tpsElections = TpsElection::all();
-        $kelurahanElections = KelurahanElection::all();
+        Log::info('Memulai fungsi index');
         
-        // Mengambil pengguna dengan role_id 2, status 1, dan belum memiliki TPS Election
+        $tpsElections = TpsElection::all();
+        Log::info('TpsElections diambil: ' . $tpsElections->count());
+        
+        $kelurahanElections = KelurahanElection::all();
+        Log::info('KelurahanElections diambil: ' . $kelurahanElections->count());
+        
         $users = User::where('role_id', 2)
                      ->whereDoesntHave('tpsElectionDetails')
                      ->whereDoesntHave('tpsElection')
@@ -24,6 +29,9 @@ class TpsElectionController extends Controller
                      ->whereDoesntHave('kecamatanElection')
                      ->whereDoesntHave('kelurahanDetails')
                      ->get();
+        Log::info('Users diambil: ' . $users->count());
+        
+        Log::info('Mencoba memuat view');
         return view('pages.dashboard.tps.index', compact('tpsElections', 'kelurahanElections', 'users'));
     }
 
