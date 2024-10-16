@@ -16,10 +16,10 @@ class TpsElectionController extends Controller
     {
         Log::info('Memulai fungsi index');
         
-        $tpsElections = TpsElection::all();
+        $tpsElections = TpsElection::with(['kelurahanElection', 'user', 'tpsElectionDetails.user'])->get();
         Log::info('TpsElections diambil: ' . $tpsElections->count());
         
-        $kelurahanElections = KelurahanElection::all();
+        $kelurahanElections = KelurahanElection::with(['kecamatanElection', 'tpsElections'])->get();
         Log::info('KelurahanElections diambil: ' . $kelurahanElections->count());
         
         $users = User::where('role_id', 2)
@@ -28,6 +28,7 @@ class TpsElectionController extends Controller
                      ->whereDoesntHave('kelurahanElection')
                      ->whereDoesntHave('kecamatanElection')
                      ->whereDoesntHave('kelurahanDetails')
+                     ->with(['role'])
                      ->get();
         Log::info('Users diambil: ' . $users->count());
         
