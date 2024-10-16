@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($tpsElections->take(10) as $tps)
+          @foreach ($tpsElections->take(1) as $tps)
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $tps->name }}</td>
