@@ -110,7 +110,7 @@
 <!-- Modal Detail TPS -->
 @foreach ($tpsElections as $tps)
 <div class="modal fade" id="detailTpsModal{{ $tps->id }}" tabindex="-1" aria-labelledby="detailTpsModalLabel{{ $tps->id }}" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="detailTpsModalLabel{{ $tps->id }}">Detail TPS: {{ $tps->name }}</h5>
