@@ -24,7 +24,6 @@ class TpsElectionController extends Controller
                      ->whereDoesntHave('kecamatanElection')
                      ->whereDoesntHave('kelurahanDetails')
                      ->get();
-        dd($users);
         return view('pages.dashboard.tps.index', compact('tpsElections', 'kelurahanElections', 'users'));
     }
 
