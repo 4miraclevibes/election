@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($tpsElections->take(1) as $tps)
+          @foreach ($tpsElections as $tps)
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $tps->name }}</td>
@@ -222,7 +222,7 @@
 <!-- / Content -->
 @endsection
 
-@push('scripts')
+{{-- @push('scripts')
 <script>
   // Inisialisasi DataTable jika belum ada
   $(document).ready(function() {
@@ -234,4 +234,4 @@
     $('#select1').select2();
   });
 </script>
-@endpush
+@endpush --}}
