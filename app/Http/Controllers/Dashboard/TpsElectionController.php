@@ -13,6 +13,7 @@ class TpsElectionController extends Controller
 {
     public function index()
     {
+        dd('a');
         $tpsElections = TpsElection::all();
         $kelurahanElections = KelurahanElection::all();
         
