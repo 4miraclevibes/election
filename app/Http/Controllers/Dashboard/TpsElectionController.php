@@ -19,7 +19,13 @@ class TpsElectionController extends Controller
         $tpsElections = TpsElection::with(['kelurahanElection', 'user', 'tpsElectionDetails.user'])->get();
         Log::info('TpsElections diambil: ' . $tpsElections->count());
         
-        $kelurahanElections = KelurahanElection::with(['kecamatanElection', 'tpsElections'])->get();
+        $kelurahanElections = KelurahanElection::with([
+            'user',
+            'kecamatanElection',
+            'tpsElection',
+            'participantElections',
+            'kelurahanDetails'
+        ])->get();
         Log::info('KelurahanElections diambil: ' . $kelurahanElections->count());
         
         $users = User::where('role_id', 2)
