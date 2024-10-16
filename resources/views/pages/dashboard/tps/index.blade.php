@@ -222,7 +222,7 @@
 <!-- / Content -->
 @endsection
 
-{{-- @push('scripts')
+@push('scripts')
 <script>
   // Inisialisasi DataTable jika belum ada
   $(document).ready(function() {
@@ -234,4 +234,4 @@
     $('#select1').select2();
   });
 </script>
-@endpush --}}
+@endpush
