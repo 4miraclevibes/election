@@ -57,6 +57,7 @@
                         <p class="card-text mb-0">Name: {{ $participantElection->name }}</p>
                         <p class="card-text mb-0">Address: {{ $participantElection->address }}</p>
                         <p class="card-text mb-0">Phone: {{ $participantElection->phone }}</p>
+                        <p class="card-text mb-0">Petugas: {{ $participantElection->tpsElectionDetail->user->name }}</p>
                         <form action="{{ route('participant.destroy', $participantElection->id) }}" method="post" class="mt-2">
                             @csrf
                             @method('DELETE')
