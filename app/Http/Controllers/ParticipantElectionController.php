@@ -68,6 +68,8 @@ class ParticipantElectionController extends Controller
             })->latest()->get();
         } elseif (Auth::user()->tpsElection) {
             $participantElection = ParticipantElection::where('tps_election_id', Auth::user()->tpsElection->id)->latest()->get();
+        } elseif (Auth::user()->tpsElectionDetails) {
+            $participantElection = ParticipantElection::where('tps_election_detail_id', Auth::user()->tpsElectionDetails->id)->latest()->get();
         } else {
             $participantElection = ParticipantElection::latest()->get();
         }
