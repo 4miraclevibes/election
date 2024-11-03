@@ -47,7 +47,6 @@ class KecamatanElectionController extends Controller
     public function show($id)
     {
         $kecamatanElection = KecamatanElection::find($id);
-        dd($kecamatanElection->participantElections);
         return view('pages.dashboard.kecamatan.show', compact('kecamatanElection'));
     }
 }
