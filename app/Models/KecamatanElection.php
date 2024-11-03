@@ -21,7 +21,7 @@ class KecamatanElection extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function kelurahanElections()
+    public function kelurahanElection()
     {
         return $this->hasMany(KelurahanElection::class);
     }
@@ -31,9 +31,12 @@ class KecamatanElection extends Model
         return $this->hasManyThrough(
             ParticipantElection::class,
             KelurahanElection::class,
-            'kecamatan_election_id',
-            'tps_election_id'
-        );
+            'kecamatan_election_id', // Foreign key pada KelurahanElection
+            'tps_election_id', // Foreign key pada ParticipantElection
+            'id', // Local key pada KecamatanElection
+            'id' // Local key pada KelurahanElection
+        )->join('tps_elections', 'tps_elections.id', '=', 'participant_elections.tps_election_id')
+         ->where('tps_elections.kelurahan_election_id', '=', DB::raw('kelurahan_elections.id'));
     }
 
     public function totalParticipant()
@@ -43,7 +46,7 @@ class KecamatanElection extends Model
 
     public function totalInvitation()
     {
-        return $this->kelurahanElections()
+        return $this->kelurahanElection()
             ->with('tpsElection')
             ->get()
             ->flatMap->tpsElection
