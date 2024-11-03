@@ -7,12 +7,39 @@ use Illuminate\Http\Request;
 use App\Models\TpsElection;
 use App\Models\ParticipantElection;
 use App\Models\TpsParticipant;
+use Illuminate\Support\Facades\Auth;
 
 class TpsParticipantController extends Controller
 {
     public function index()
     {
-        $tpsParticipants = TpsParticipant::all();
+        if(Auth::user()->name == 'AdminTalawi'){
+            $tpsParticipants = TpsParticipant::whereHas('tpsElection', function($query) {
+                $query->whereHas('kelurahanElection', function($query) {
+                    $query->whereHas('kecamatanElection', function($query) {
+                        $query->where('name', 'talawi');
+                    });
+                });
+            })->get();
+        } else if(Auth::user()->name == 'adminlembahsegar'){
+            $tpsParticipants = TpsParticipant::whereHas('tpsElection', function($query) {
+                $query->whereHas('kelurahanElection', function($query) {
+                    $query->whereHas('kecamatanElection', function($query) {
+                        $query->where('name', 'Lembah Segar');
+                    });
+                });
+            })->get();
+        } else if(Auth::user()->name == 'adminsilungkang'){
+            $tpsParticipants = TpsParticipant::whereHas('tpsElection', function($query) {
+                $query->whereHas('kelurahanElection', function($query) {
+                    $query->whereHas('kecamatanElection', function($query) {
+                        $query->where('name', 'SILUNGKANG');
+                    });
+                });
+            })->get();
+        } else {
+            $tpsParticipants = TpsParticipant::all();
+        }
         return view('pages.dashboard.participant.index', compact('tpsParticipants'));
     }
 
