@@ -7,6 +7,7 @@ use App\Models\KelurahanElection;
 use App\Models\KecamatanElection;
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use App\Models\KelurahanDetail;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,25 @@ class KelurahanElectionController extends Controller
 {
     public function index()
     {
-        $kelurahanElections = KelurahanElection::all();
-        $kecamatanElections = KecamatanElection::all();
+        if(Auth::user()->name == 'AdminTalawi'){
+            $kecamatanElections = KecamatanElection::where('name', 'talawi')->get();
+            $kelurahanElections = KelurahanElection::whereHas('kecamatanElection', function($query) {
+                $query->where('name', 'talawi');
+            })->get();
+        } else if(Auth::user()->name == 'adminlembahsegar'){
+            $kecamatanElections = KecamatanElection::where('name', 'Lembah Segar')->get();
+            $kelurahanElections = KelurahanElection::whereHas('kecamatanElection', function($query) {
+                $query->where('name', 'Lembah Segar');
+            })->get();
+        } else if(Auth::user()->name == 'adminsilungkang'){
+            $kecamatanElections = KecamatanElection::where('name', 'SILUNGKANG')->get();
+            $kelurahanElections = KelurahanElection::whereHas('kecamatanElection', function($query) {
+                $query->where('name', 'SILUNGKANG');
+            })->get();
+        } else {
+            $kelurahanElections = KelurahanElection::all();
+            $kecamatanElections = KecamatanElection::all();
+        }
 
         // Mengambil pengguna dengan role_id 2, status 1, dan belum memiliki TPS Election
         $users = User::where('role_id', 2)
