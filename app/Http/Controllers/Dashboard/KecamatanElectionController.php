@@ -47,7 +47,16 @@ class KecamatanElectionController extends Controller
     public function show($id)
     {
         $kecamatanElection = KecamatanElection::find($id);
-        dd($kecamatanElection->participantElections);
-        return view('pages.dashboard.kecamatan.show', compact('kecamatanElection'));
+        
+        // Debug tiap level relasi
+        dd([
+            'kelurahan_elections' => $kecamatanElection->kelurahanElections()->get(),
+            'tps_elections' => $kecamatanElection->kelurahanElections()
+                ->with('tpsElection')->get()->pluck('tpsElection')->flatten(),
+            'participant_elections' => $kecamatanElection->kelurahanElections()
+                ->with('tpsElection.participantElection')->get()
+                ->pluck('tpsElection')->flatten()
+                ->pluck('participantElection')->flatten()
+        ]);
     }
 }
