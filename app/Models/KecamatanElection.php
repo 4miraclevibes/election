@@ -30,13 +30,15 @@ class KecamatanElection extends Model
     {
         return $this->hasManyThrough(
             ParticipantElection::class,
-            KelurahanElection::class,
-            'kecamatan_election_id', // Foreign key pada KelurahanElection
-            'tps_election_id', // Foreign key pada ParticipantElection
-            'id', // Local key pada KecamatanElection
-            'id' // Local key pada KelurahanElection
-        )->join('tps_elections', 'tps_elections.id', '=', 'participant_elections.tps_election_id')
-         ->where('tps_elections.kelurahan_election_id', '=', DB::raw('kelurahan_elections.id'));
+            TpsElection::class,
+            'kelurahan_election_id', // Foreign key di TpsElection yang menghubungkan ke KelurahanElection
+            'tps_election_id',      // Foreign key di ParticipantElection yang menghubungkan ke TpsElection
+            'id',                   // Local key di KecamatanElection
+            'id'                    // Local key di TpsElection
+        )->join('kelurahan_elections', function($join) {
+            $join->on('kelurahan_elections.id', '=', 'tps_elections.kelurahan_election_id')
+                 ->where('kelurahan_elections.kecamatan_election_id', '=', DB::raw('kecamatan_elections.id'));
+        });
     }
 
     public function totalParticipant()
