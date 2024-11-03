@@ -31,7 +31,7 @@
             <td>{{ $kecamatan->user->email }}</td>
             <td>{{ $kecamatan->user->name }}</td>
             <td>
-              <a href="{{ route('dashboard.kecamatan.show', $kecamatan->id) }}" class="btn btn-info btn-sm">Show</a>
+              {{-- <a href="{{ route('dashboard.kecamatan.show', $kecamatan->id) }}" class="btn btn-info btn-sm">Show</a> --}}
               <form action="{{ route('dashboard.kecamatan.destroy', $kecamatan->id) }}" method="POST" style="display:inline-block;">
                 @csrf
                 @method('DELETE')
