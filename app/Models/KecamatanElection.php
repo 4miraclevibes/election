@@ -21,7 +21,7 @@ class KecamatanElection extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function kelurahanElection()
+    public function kelurahanElections()
     {
         return $this->hasMany(KelurahanElection::class);
     }
@@ -45,7 +45,7 @@ class KecamatanElection extends Model
 
     public function totalInvitation()
     {
-        return $this->kelurahanElection()
+        return $this->kelurahanElections()
             ->with('tpsElection')
             ->get()
             ->flatMap->tpsElection
