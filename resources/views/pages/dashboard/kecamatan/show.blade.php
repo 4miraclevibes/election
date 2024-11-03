@@ -29,7 +29,7 @@
             <td>{{ $participantElection->name }}</td>
             <td>{{ $participantElection->address }}</td>
             <td>{{ $participantElection->phone }}</td>
-            <td>{{ $participantElection->tpsElectionDetail->user->name }}</td>
+            <td>{{ $participantElection->tpsElection->user->name }}</td>
           </tr>
           @endforeach
         </tbody>
