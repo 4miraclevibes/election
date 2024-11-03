@@ -30,11 +30,15 @@ class KecamatanElection extends Model
     {
         return $this->hasManyThrough(
             ParticipantElection::class,
-            KelurahanElection::class
+            KelurahanElection::class,
+            'kecamatan_election_id',
+            'tps_election_id',
+            'id',
+            'id'
         )->join('tps_elections', function($join) {
             $join->on('tps_elections.id', '=', 'participant_elections.tps_election_id')
                 ->whereColumn('tps_elections.kelurahan_election_id', '=', 'kelurahan_elections.id');
-        });
+        })->select('participant_elections.*');
     }
 
     public function totalParticipant()
