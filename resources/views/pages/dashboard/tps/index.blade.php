@@ -45,6 +45,9 @@
               <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadCsvModal{{ $tps->id }}">
                 Upload CSV
               </button>
+              <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tambahPesertaModal{{ $tps->id }}">
+                Tambah Peserta
+              </button>
               <form action="{{ route('dashboard.tps.destroy', $tps->id) }}" method="POST" style="display:inline-block;">
                   @csrf
                   @method('DELETE')
@@ -212,6 +215,49 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
           <button type="submit" class="btn btn-primary">Unggah CSV</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endforeach
+
+<!-- Modal Tambah Peserta -->
+@foreach ($tpsElections as $tps)
+<div class="modal fade" id="tambahPesertaModal{{ $tps->id }}" tabindex="-1" aria-labelledby="tambahPesertaModalLabel{{ $tps->id }}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahPesertaModalLabel{{ $tps->id }}">Tambah Peserta untuk TPS: {{ $tps->name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('dashboard.tps.storeParticipant', $tps->id) }}" method="POST">
+        @csrf
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nama Peserta</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Alamat Peserta</label>
+            <input type="text" class="form-control" id="address" name="address" required>
+          </div>
+          <div class="mb-3">
+            <label for="sex" class="form-label">Jenis Kelamin</label>
+            <select class="form-select" id="sex" name="sex" required>
+              <option value="">Pilih Jenis Kelamin</option>
+              <option value="L">Laki-laki</option>
+              <option value="P">Perempuan</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="age" class="form-label">Usia Peserta</label>
+            <input type="number" class="form-control" id="age" name="age" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Tambah Peserta</button>
         </div>
       </form>
     </div>

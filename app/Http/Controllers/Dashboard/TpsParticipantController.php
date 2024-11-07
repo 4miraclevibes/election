@@ -77,4 +77,12 @@ class TpsParticipantController extends Controller
 
         return back()->with('error', 'Gagal mengunggah file CSV');
     }
+
+    public function store(Request $request, TpsElection $tps)
+    {
+        $data = $request->only('name', 'sex', 'age', 'address');
+        $data['tps_election_id'] = $tps->id;
+        TpsParticipant::create($data);
+        return redirect()->route('dashboard.participant.index')->with('success', 'Participant created successfully');
+    }
 }
