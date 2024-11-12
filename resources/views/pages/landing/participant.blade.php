@@ -58,7 +58,7 @@
     </section>
     @endif
     <section class="data mt-5">
-        <h5 class="section-title mb-3">Data Pemilih <span class="text-success">Tps {{ Auth::user()->tpsElectionDetails->tpsElection->name }}</span></h5>
+        <h5 class="section-title mb-3">Data Pemilih <span class="text-success">{{ Auth::user()->kelurahanElection->name }} Tps {{ Auth::user()->tpsElectionDetails->tpsElection->name }}</span></h5>
         <h5>Total Pemilih: {{ $participantElection->count() }}</h5>
         <div class="row g-3">
             @foreach($participantElection as $participantElection)
