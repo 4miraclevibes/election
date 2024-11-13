@@ -34,7 +34,10 @@ class ParticipantElectionController extends Controller
                                         ->first();
 
         if (!$tpsParticipant) {
-            return redirect()->route('participant.index')->with('error', 'Error: Nama dan alamat tidak terdaftar di data TPS');
+            $tpsParticipant = TpsParticipant::where('id', $request->id)->where('address', $request->address)->first();
+            if (!$tpsParticipant) {
+                return redirect()->route('participant.index')->with('error', 'Error: Nama dan alamat tidak terdaftar di data TPS');
+            }
         }
 
         // Cek apakah sudah terdaftar di ParticipantElection
