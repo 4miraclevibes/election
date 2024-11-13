@@ -19,6 +19,7 @@
         <thead>
           <tr class="text-nowrap table-dark">
             <th class="text-white">No</th>
+            <th class="text-white">ID</th>
             <th class="text-white">Nama</th>
             <th class="text-white">Alamat</th>
             <th class="text-white">Jenis Kelamin</th>
@@ -33,6 +34,7 @@
           @foreach ($tpsParticipants as $participant)
           <tr>
             <th scope="row">{{ $loop->iteration }}</th>
+            <td>{{ $participant->id }}</td>
             <td>{{ $participant->name }}</td>
             <td>{{ $participant->address }}</td>
             <td>{{ $participant->sex }}</td>
