@@ -72,6 +72,7 @@ Route::group([
     // Tambahkan rute baru untuk upload CSV
     Route::post('tps/{tps}/upload-csv', [TpsParticipantController::class, 'uploadCsv'])->name('tps.uploadCsv');
     Route::post('tps/{tps}/store', [TpsParticipantController::class, 'store'])->name('tps.storeParticipant');
+    Route::post('tps/{tps}/upload-csv-participant', [TpsParticipantController::class, 'participantUploadCsv'])->name('tps.participantUploadCsv');
 });
 
 require __DIR__.'/auth.php';

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\TpsElection;
 use App\Models\ParticipantElection;
 use App\Models\TpsParticipant;
+use App\Models\TpsElectionDetail;
 use Illuminate\Support\Facades\Auth;
 
 class TpsParticipantController extends Controller
@@ -76,6 +77,46 @@ class TpsParticipantController extends Controller
         }
 
         return back()->with('error', 'Gagal mengunggah file CSV');
+    }
+
+    public function participantUploadCsv(Request $request, TpsElection $tps)
+    {
+        $request->validate([
+            'csv_file_participant' => 'required|file|mimes:csv,txt',
+        ]);
+
+        if ($request->hasFile('csv_file_participant')) {
+            $path = $request->file('csv_file_participant')->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+
+            // Hapus baris header jika ada
+            array_shift($data);
+
+            foreach ($data as $row) {
+                $checkTpsParticipant = TpsParticipant::where('tps_election_id', $tps->id)->where('name', $row[0])->where('address', $row[1])->first();
+                if (count($row) >= 3 && $checkTpsParticipant) { // Pastikan row memiliki setidaknya 3 kolom, dan check apakah datanya ada di TpsParticipant
+                    $tpsElectionDetail = TpsElectionDetail::find($request->tps_election_detail_id);
+                    //Check apakah datanya sudah ada di ParticipantElection sebelumnya, jika ada maka tidak perlu diupload
+                    $checkParticipantElection = ParticipantElection::where('name', $row[0])->where('address', $row[1])->exists();
+                    if (!$checkParticipantElection) {
+                        ParticipantElection::create([
+                            'tps_election_id' => $tps->id,
+                            'tps_election_detail_id' => $tpsElectionDetail->id,
+                            'name' => $row[0], // Kolom NAMA
+                            'address' => $row[1], // Kolom DUSUN/ALAMAT
+                            'phone' => $row[2], // Kolom NO.HP
+                        ]);
+                    } else {
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
+            }
+            return back()->with('success', 'Data berhasil diunggah');
+        } else {
+            return back()->with('error', 'Gagal mengunggah file CSV');
+        }
     }
 
     public function store(Request $request, TpsElection $tps)

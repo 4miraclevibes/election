@@ -45,6 +45,9 @@
               <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadCsvModal{{ $tps->id }}">
                 Upload CSV
               </button>
+              <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#uploadCsvParticipantModal{{ $tps->id }}">
+                Upload CSV Peserta
+              </button>
               <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tambahPesertaModal{{ $tps->id }}">
                 Tambah Peserta
               </button>
@@ -208,6 +211,51 @@
             <p>Format CSV yang diharapkan:</p>
             <pre>
               name,address,sex,age
+            </pre>
+            <p>Catatan: Pastikan data dalam CSV sesuai dengan format di atas.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Unggah CSV</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endforeach
+
+<!-- Modal Upload CSV Peserta -->
+@foreach ($tpsElections as $tps)
+<div class="modal fade" id="uploadCsvParticipantModal{{ $tps->id }}" tabindex="-1" aria-labelledby="uploadCsvParticipantModalLabel{{ $tps->id }}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadCsvParticipantModalLabel{{ $tps->id }}">Unggah CSV Peserta Pemilih untuk TPS: {{ $tps->name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('dashboard.tps.participantUploadCsv', $tps->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-body">
+          <h6>Relawan</h6>
+          <div class="mb-3">
+            <label for="tps_election_detail_id" class="form-label">Pilih Relawan</label>
+            <select class="form-select" name="tps_election_detail_id" id="tps_election_detail_id" required>
+              <option value="">Pilih Relawan</option>
+              @foreach($tps->tpsElectionDetails as $detail)
+                <option value="{{ $detail->id }}">{{ $detail->user->name }}</option>
+              @endforeach
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label for="csv_file_participant" class="form-label">Pilih file CSV</label>
+            <input type="file" class="form-control" id="csv_file_participant" name="csv_file_participant" accept=".csv" required>
+          </div>
+          <div class="mb-3">
+            <p>Format CSV yang diharapkan:</p>
+            <pre>
+              name,address,phone
             </pre>
             <p>Catatan: Pastikan data dalam CSV sesuai dengan format di atas.</p>
           </div>
